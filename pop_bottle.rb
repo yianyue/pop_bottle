@@ -21,18 +21,21 @@ def buy_pop(inv)
     
     empty_bot += b
     cap += b
-
     tot_bot += b
-
   end
   
   return tot_bot
 
 end
 
-
-
 def buy_pop_rec(inv)
+  @tot_bot = 0
+  @empty_bot = 0
+  @caps = 0
+  recursion(inv)
+end
+
+def recursion(inv)
   # byebug
   bots = inv/2.floor
   @tot_bot += bots
@@ -44,16 +47,14 @@ def buy_pop_rec(inv)
     @empty_bot = @empty_bot%2
     @caps = @caps%4
 
-    buy_pop_rec(bots*2)
+    recursion(bots*2)
 end
 
 # puts buy_pop(2) == 1
 # puts buy_pop(8) == 11
 # puts buy_pop(10) == 15
 # puts buy_pop(20) == 35
-@tot_bot = 0
-@empty_bot = 0
-@caps = 0
+
 
 puts buy_pop_rec(2) == 1
 
