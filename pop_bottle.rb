@@ -14,14 +14,10 @@ def buy_pop(inv)
   cap = b
 
   while empty_bot >= 2 || cap >= 4
-    
-    n_eb = empty_bot/2.floor
-    n_ec = cap/4.floor
+    b = empty_bot/2.floor + cap/4.floor
 
     empty_bot = empty_bot%2
     cap = cap%4
-
-    b = n_eb + n_ec
     
     empty_bot += b
     cap += b
@@ -34,15 +30,33 @@ def buy_pop(inv)
 
 end
 
-def empty_bot(num)
-  
+
+
+def buy_pop_rec(inv)
+  # byebug
+  bots = inv/2.floor
+  @tot_bot += bots
+  @empty_bot += bots
+  @caps += bots
+    
+  return @tot_bot if @empty_bot < 2 && @caps < 4
+    bots = @empty_bot/2.floor + @caps/4.floor
+    @empty_bot = @empty_bot%2
+    @caps = @caps%4
+
+    buy_pop_rec(bots*2)
 end
 
-def bot_cap(num)
+# puts buy_pop(2) == 1
+# puts buy_pop(8) == 11
+# puts buy_pop(10) == 15
+# puts buy_pop(20) == 35
+@tot_bot = 0
+@empty_bot = 0
+@caps = 0
 
-end 
+puts buy_pop_rec(2) == 1
 
-puts buy_pop(2) == 1
-puts buy_pop(8) == 11
-puts buy_pop(10) == 15
-puts buy_pop(20) == 35
+puts buy_pop_rec(8) == 11
+puts buy_pop_rec(10) == 15
+puts buy_pop_rec(20) == 35
