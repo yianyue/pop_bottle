@@ -29,6 +29,8 @@ def buy_pop(inv)
 end
 
 def buy_pop_rec(inv)
+  # all this function does is to initialize the counters and call the recursive function
+  # http://stackoverflow.com/questions/10567102/how-to-use-an-index-variable-in-a-recursion
   @tot_bot = 0
   @empty_bot = 0
   @caps = 0
@@ -36,18 +38,24 @@ def buy_pop_rec(inv)
 end
 
 def recursion(inv)
-  # byebug
+  # calculate the number of bottles that can be bought with inv dollars
   bots = inv/2.floor
+  
+  # increment the counters
   @tot_bot += bots
   @empty_bot += bots
   @caps += bots
-    
+  
+  # recursion is finished if no new bottles can be exchanged 
   return @tot_bot if @empty_bot < 2 && @caps < 4
-    bots = @empty_bot/2.floor + @caps/4.floor
-    @empty_bot = @empty_bot%2
-    @caps = @caps%4
+  # bots is the number of bottles that can be redeemed from the empty bottles and caps
+  bots = @empty_bot/2.floor + @caps/4.floor
+  # calculate the leftover empty bottles and caps after redemption
+  @empty_bot = @empty_bot%2
+  @caps = @caps%4
+  
+  recursion(bots*2)
 
-    recursion(bots*2)
 end
 
 # puts buy_pop(2) == 1
